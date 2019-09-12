@@ -1,0 +1,32 @@
+{
+  "name": "javascript-full-stack-demo-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development DEBUG=express:* serverless offline start --port 3000",
+    "test": "jest --ci --forceExit --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tlan16/javascript-full-stack-demo.git"
+  },
+  "author": "Frank Lan <franklan118@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlan16/javascript-full-stack-demo/issues"
+  },
+  "homepage": "https://github.com/tlan16/javascript-full-stack-demo#readme",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "serverless-http": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-plugin-jest": "^22.17.0",
+    "jest": "^24.9.0",
+    "serverless": "^1.52.0",
+    "serverless-offline": "^5.11.0"
+  }
+}

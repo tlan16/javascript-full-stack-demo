@@ -1,0 +1,31 @@
+service: dabus-dashboard
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    region: ap-southeast-2
+
+provider:
+  name: aws
+  endpointType: REGIONAL
+  runtime: nodejs10.x
+  region: ap-southeast-2
+  memorySize: 128
+  timeout: 30 # The default is 6 seconds. Note: API Gateway current maximum is 30 seconds
+  apiGateway: # Optional API Gateway global config
+    minimumCompressionSize: 0 # Compress response when larger than specified size in bytes (must be between 0 and 10485760)
+
+functions:
+  app:
+    handler: src/index.handler
+    events:
+      - http:
+          path: '{proxy+}'
+          method: ANY
+          cors: false
+          private: false
