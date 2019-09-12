@@ -6,12 +6,14 @@ const Customer = require('../models/customer');
  * @param {Object} req
  * @param {Object} res
  */
-function create (req, res) {
-  const customer = new Customer(req.body);
-
-  customer.save((err, customer) => {
-    res.json(customer)
-  })
+async function create (req, res) {
+  try {
+    const customer = new Customer(req.body);
+    await customer.save();
+    await res.json(customer);
+  } catch (err) {
+    res.status(422).send(err)
+  }
 }
 
 module.exports = {
