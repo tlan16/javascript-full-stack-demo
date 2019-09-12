@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const {heathCheckController} = require('../controllers');
+const heathCheckController = require('../controllers/heathCheckController');
 
 /**
  * @returns {Router}
