@@ -15,3 +15,4 @@ This is a demo JavaScript Full-stack project
 - node
 - express
 - mongoose
+- jest
