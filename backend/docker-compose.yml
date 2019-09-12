@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  backend:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/opt/app
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
