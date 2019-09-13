@@ -13,6 +13,7 @@ function route () {
   router.post('/customer', customerController.create);
   router.get('/customer/:email', customerController.read);
   router.put('/customer/:email', customerController.update);
+  router.delete('/customer/:email', customerController.delete);
 
   return router;
 }

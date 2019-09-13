@@ -69,8 +69,33 @@ async function update(req, res) {
   }
 }
 
+
+async function remove(req, res) {
+  try {
+    const {email} = req.params;
+
+    const query = {
+      email,
+    };
+
+    if (! await Customer.exists(query)) {
+      res.status(404)
+        .type('text/markdown')
+        .send(`Cannot found user with email \`${email}\``);
+
+      return;
+    }
+
+    await Customer.deleteOne(query);
+    await res.status(204).send();
+  } catch (err) {
+    res.status(422).send(err)
+  }
+}
+
 module.exports = {
   create,
   read,
   update,
+  delete: remove,
 };
