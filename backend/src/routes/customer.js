@@ -12,6 +12,7 @@ function route () {
   router.use(bodyParser.json());
   router.post('/customer', customerController.create);
   router.get('/customer/:email', customerController.read);
+  router.put('/customer/:email', customerController.update);
 
   return router;
 }

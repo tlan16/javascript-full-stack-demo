@@ -11,7 +11,8 @@ async function create (req, res) {
     if (await Customer.exists({email: req.body.email})) {
       res.status(409)
         .type('text/markdown')
-        .send(`User with email \`${req.body.email}\` already exist.`)
+        .send(`User with email \`${req.body.email}\` already exist.`);
+      return;
     }
 
     const customer = new Customer(req.body);
@@ -34,12 +35,42 @@ async function read(req, res) {
     res.status(404)
       .type('text/markdown')
       .send(`Cannot found user with email \`${email}\``);
-  } else {
-    await res.json(customer);
+
+    return;
+  }
+
+  await res.json(customer);
+}
+
+async function update(req, res) {
+  try {
+    const {email} = req.params;
+
+    const query = {
+      email,
+    };
+
+    const customer = await Customer.findOne(query);
+    if (!customer) {
+      res.status(404)
+        .type('text/markdown')
+        .send(`User with email \`${req.body.email}\` does not exist.`);
+      return;
+    }
+
+    const updatedCustomer = new Customer(req.body);
+
+    const options = {new : true, runValidators: true };
+    await Customer.updateOne({query}, updatedCustomer, options);
+
+    await res.json(updatedCustomer);
+  } catch (err) {
+    res.status(422).send(err)
   }
 }
 
 module.exports = {
   create,
   read,
+  update,
 };
