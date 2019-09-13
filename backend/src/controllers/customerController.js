@@ -59,6 +59,7 @@ async function update(req, res) {
     }
 
     const updatedCustomer = new Customer(req.body);
+    await updatedCustomer.validate();
 
     const options = {new : true, runValidators: true };
     await Customer.updateOne({query}, updatedCustomer, options);
