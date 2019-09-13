@@ -8,6 +8,12 @@ const Customer = require('../models/customer');
  */
 async function create (req, res) {
   try {
+    if (await Customer.exists({email: req.body.email})) {
+      res.status(409)
+        .type('text/markdown')
+        .send(`User with email \`${req.body.email}\` already exist.`)
+    }
+
     const customer = new Customer(req.body);
     await customer.save();
     await res.json(customer);
