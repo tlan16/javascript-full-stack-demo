@@ -28,6 +28,8 @@ services:
     restart: on-failure
     networks:
       - api-network
+    volumes:
+      - dbdata:/data/db
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:27017"]
       interval: 30s
