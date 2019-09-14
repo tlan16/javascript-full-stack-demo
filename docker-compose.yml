@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/opt/app
+      - /opt/app/node_modules
+    command: npm run start
+    networks:
+      - api-network
+    tty: true
+    depends_on:
+      - mongo
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mongo:
+    image: mongo:4.2.0
+    ports:
+      - "27017:27017"
+    restart: on-failure
+    networks:
+      - api-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:27017"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+    volumes:
+      - ./frontend:/opt/app
+      - /opt/app/node_modules
+    command: npm run start
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    tty: true
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+#Docker Networks
+networks:
+  api-network:
+    driver: bridge
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
