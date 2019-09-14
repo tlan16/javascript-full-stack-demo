@@ -108,7 +108,10 @@ async function index(req, res) {
     customers,
     totalCustomerCount,
   ] = await Promise.all([
-    Customer.find().limit(size).skip(size*page),
+    Customer.find()
+      .sort({'firstName': 'ascending'})
+      .limit(size)
+      .skip(size*page),
     Customer.countDocuments(),
   ]);
 
