@@ -1,7 +1,21 @@
-import {makeStyles} from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import React from "react";
-import CustomersTable from "./CustomersTable";
+import loadable from '@loadable/component';
+import Loading from "../../components/Loading";
+
+const Paper = loadable(
+    () => import('@material-ui/core/Paper'),
+    {
+        fallback: <Loading/>,
+    },
+);
+
+const CustomersTable = loadable(
+    () => import('./CustomersTable'),
+    {
+        fallback: <Loading/>,
+    },
+);
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -10,7 +24,6 @@ const useStyles = makeStyles(theme => ({
         overflowX: 'auto',
     },
 }));
-
 
 function Customers() {
     const classes = useStyles();
