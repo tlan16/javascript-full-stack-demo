@@ -19,12 +19,14 @@
   "homepage": "https://github.com/tlan16/javascript-full-stack-demo#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "express": "5.0.0-alpha.7",
     "mongoose": "^5.7.0",
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "autocannon": "^4.1.0",
     "eslint": "^6.3.0",
     "eslint-plugin-jest": "^22.17.0",
     "jest": "^24.9.0",

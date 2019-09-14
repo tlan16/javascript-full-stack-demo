@@ -94,9 +94,37 @@ async function remove(req, res) {
   }
 }
 
+async function index(req, res) {
+  const page = (req.query.page > 0 ? req.query.page : 1) - 1;
+  const size = req.query.size > 0 ? parseInt(req.query.size) : 15;
+
+  if (size > 100) {
+    res.status(404)
+      .type('text/markdown')
+      .send('Pagination size cannot exceed 100');
+  }
+
+  const [
+    customers,
+    totalCustomerCount,
+  ] = await Promise.all([
+    Customer.find().limit(size).skip(size*page),
+    Customer.countDocuments(),
+  ]);
+
+  await res.json({
+    data: customers,
+    page: page + 1,
+    size: size,
+    totalCount: totalCustomerCount,
+    totalPages: Math.ceil(totalCustomerCount / size),
+  })
+}
+
 module.exports = {
   create,
   read,
   update,
   delete: remove,
+  index,
 };
