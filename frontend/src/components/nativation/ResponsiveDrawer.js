@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -11,6 +11,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {Link, Route} from "react-router-dom";
+import useReactRouter from 'use-react-router';
+import {pathToRouteName} from "../../routes";
+
 
 const drawerWidth = 240;
 
@@ -45,10 +48,15 @@ function ResponsiveDrawer(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { location } = useReactRouter();
 
     function handleDrawerToggle() {
         setMobileOpen(!mobileOpen);
     }
+
+    useEffect(() => {
+        console.log(pathToRouteName(location.pathname))
+    }, [location]);
 
     const drawer = (
         <div>
