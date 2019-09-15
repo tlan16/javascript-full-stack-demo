@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleIcon from '@material-ui/icons/People';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -54,11 +55,20 @@ function ResponsiveDrawer(props) {
             <List>
                 <ListItem
                     button
+                    key="/home"
+                    component={Link}
+                    to="/"
+                >
+                    <ListItemIcon><HomeIcon /></ListItemIcon>
+                    <ListItemText primary="Home" />
+                </ListItem>
+                <ListItem
+                    button
                     key="/customers"
                     component={Link}
                     to="/customers"
                 >
-                    <ListItemIcon><InboxIcon /></ListItemIcon>
+                    <ListItemIcon><PeopleIcon /></ListItemIcon>
                     <ListItemText primary="Customers" />
                 </ListItem>
             </List>
