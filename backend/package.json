@@ -23,6 +23,7 @@
     "dotenv": "^8.1.0",
     "express": "5.0.0-alpha.7",
     "mongoose": "^5.7.0",
+    "mongoose-fuzzy-searching": "^1.1.8",
     "validator": "^11.1.0"
   },
   "devDependencies": {

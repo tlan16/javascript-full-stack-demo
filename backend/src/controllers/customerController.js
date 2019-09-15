@@ -97,6 +97,7 @@ async function remove(req, res) {
 async function index(req, res) {
   const page = (req.query.page > 0 ? req.query.page : 1) - 1;
   const size = req.query.size > 0 ? parseInt(req.query.size) : 15;
+  const search = String(req.query.search).length > 0 ? req.query.search : undefined;
 
   if (size > 100) {
     res.status(404)
@@ -104,14 +105,16 @@ async function index(req, res) {
       .send('Pagination size cannot exceed 100');
   }
 
+  const query = search ? Customer.fuzzySearch(search) : Customer.find();
+  query.sort({'firstName': 'ascending'})
+    .limit(size)
+    .skip(size*page);
+
   const [
     customers,
     totalCustomerCount,
   ] = await Promise.all([
-    Customer.find()
-      .sort({'firstName': 'ascending'})
-      .limit(size)
-      .skip(size*page),
+    query.exec(),
     Customer.countDocuments(),
   ]);
 

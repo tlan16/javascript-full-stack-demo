@@ -1,16 +1,19 @@
 'use strict';
 const {Schema} = require('mongoose');
 const {isEmail} = require('validator');
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 const AddressSchema = require('./address');
 
 const CustomerSchema = new Schema({
   firstName: {
     type: String,
     required: true,
+    index: true,
   },
   lastName: {
     type: String,
     required: true,
+    index: true,
   },
   email: {
     type: String,
@@ -21,10 +24,24 @@ const CustomerSchema = new Schema({
     },
   },
   title: String,
-  gender: String,
-  dob: Date,
+  gender: {
+    type: String,
+    index: true,
+  },
+  dob: {
+    type: Date,
+    index: true,
+  },
   addresses: [AddressSchema],
 });
+
+CustomerSchema.plugin(mongoose_fuzzy_searching, {
+  fields: [
+    'firstName',
+    'lastName',
+    'email',
+  ],
+}, { autoIndex: false });
 
 CustomerSchema.path('email').validate(function(email) {
   return isEmail(email)
