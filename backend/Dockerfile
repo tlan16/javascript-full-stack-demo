@@ -1,16 +1,22 @@
 FROM node:10.16.3-alpine
 
-## Install OS dependencies
+# Install OS dependencies
 RUN apk --no-cache add \
     ca-certificates \
     bash
 
-## Copy source code
 WORKDIR /opt/app
-COPY . .
 
-## Install project specific packages
+# Expose app port
+EXPOSE 3000
+
+# Set the default command to run when a container starts
+CMD ["npm", "run", "start"]
+
+# Install project specific packages
+COPY package.json .
+COPY package-lock.json .
 RUN ["npm", "install"]
 
-EXPOSE 3000
-CMD ["npm", "run", "start"]
+# Copy source code
+COPY . .
