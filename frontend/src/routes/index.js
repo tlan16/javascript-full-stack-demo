@@ -4,12 +4,27 @@ import Index from "../screens/index";
 import Customers from "../screens/customers";
 import Navigation from "../components/nativation";
 
+const routes = [
+    {
+        name: 'Home',
+        path: '/',
+        exact: true,
+        component: Index,
+    },
+    {
+        name: 'Customers',
+        path: '/customers/',
+        exact: false,
+        component: Customers,
+    },
+];
+
 function AppRouter() {
     return (
         <Router>
-            <Navigation/>
-            <Route path="/" exact component={Index}/>
-            <Route path="/customers/" component={Customers}/>
+            <Route
+                render={(props) => <Navigation {...props} routes={routes} />}
+            />
         </Router>
     )
 }

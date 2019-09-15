@@ -5,13 +5,16 @@ import MaterialTable from "material-table";
 function NewTable () {
     return (
         <MaterialTable
-            title="Remote Data Preview"
+            title="Customers"
             columns={[
                 { title: 'First Name', field: 'firstName' },
                 { title: 'Last Name', field: 'lastName' },
                 { title: 'Email', field: 'email' },
             ]}
             data={query => fetchCustomers(query)}
+            options={{
+                pageSize: 10,
+            }}
         />
     )
 }
