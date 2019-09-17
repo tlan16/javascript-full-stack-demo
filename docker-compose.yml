@@ -18,7 +18,7 @@ services:
       - redis
     restart: on-failure
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -33,7 +33,7 @@ services:
     volumes:
       - dbdata:/data/db
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:27017"]
+      test: echo 'db.stats().ok' | mongo localhost:27017/zenbrain --quiet
       interval: 30s
       timeout: 10s
       retries: 5
@@ -46,7 +46,7 @@ services:
     networks:
       - api-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6379"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -68,7 +68,7 @@ services:
     tty: true
     restart: on-failure
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8888"]
       interval: 30s
       timeout: 10s
       retries: 5
