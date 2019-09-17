@@ -11,7 +11,7 @@ WORKDIR /opt/app
 EXPOSE 3000
 
 # Set the default command to run when a container starts
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]
 
 # Install project specific packages
 COPY package.json .

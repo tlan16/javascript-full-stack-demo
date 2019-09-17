@@ -5,10 +5,11 @@ services:
     build: ./backend-nest
     ports:
       - 3000:3000
+      - 9229:9229
     volumes:
       - ./backend-nest:/opt/app
       - /opt/app/node_modules
-    command: npm run start
+    command: npm run start:dev
     networks:
       - api-network
     tty: true
