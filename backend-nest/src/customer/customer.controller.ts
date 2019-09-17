@@ -1,4 +1,16 @@
-import {Controller, Get, Post, Put, Body, Param, Delete, HttpStatus, HttpCode} from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Put,
+    Body,
+    Param,
+    Delete,
+    HttpStatus,
+    HttpCode,
+    UseInterceptors,
+    CacheInterceptor,
+} from '@nestjs/common';
 import {
     ApiOperation,
     ApiResponse,
@@ -9,6 +21,7 @@ import { Customer } from './customer.entity';
 
 @ApiUseTags('customer')
 @Controller('customer')
+@UseInterceptors(CacheInterceptor)
 export class CustomerController {
     constructor(private readonly customerService: CustomerService) {}
 

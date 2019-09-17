@@ -1,11 +1,14 @@
-import { Module } from '@nestjs/common';
+import {CacheModule, Module} from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { CustomerService } from './customer.service';
 import { customerProviders } from './customer.providers';
 import { CustomerController } from './customer.controller';
 
 @Module({
-    imports: [DatabaseModule],
+    imports: [
+        CacheModule.register(),
+        DatabaseModule,
+    ],
     providers: [
         ...customerProviders,
         CustomerService,
