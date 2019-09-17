@@ -29,6 +29,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.10.0",
     "fastify-swagger": "^2.4.0",
+    "helmet": "^3.21.0",
     "mongodb": "^3.3.2",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
