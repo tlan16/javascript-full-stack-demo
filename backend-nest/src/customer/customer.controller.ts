@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {Controller, Get, Post, Put, Body, Param, Delete, HttpStatus, HttpCode} from '@nestjs/common';
 import {
     ApiOperation,
     ApiResponse,
@@ -19,7 +19,7 @@ export class CustomerController {
         description: 'The record has been successfully created.',
         type: Customer,
     })
-    create(@Body() customer: Customer) {
+    async create(@Body() customer: Customer): Promise<Customer> {
         return this.customerService.create(customer);
     }
 
@@ -28,7 +28,34 @@ export class CustomerController {
         status: 200,
         type: [Customer],
     })
-    findAll(): Promise<Customer[]> {
+    async findAll(): Promise<Customer[]> {
         return this.customerService.findAll();
+    }
+
+    @Get(':id')
+    @ApiResponse({
+        status: 200,
+        type: Customer,
+    })
+    async findById(@Param('id') id: string): Promise<Customer> {
+        return this.customerService.findById(id);
+    }
+
+    @Put(':id')
+    @ApiResponse({
+        status: 200,
+        type: Customer,
+    })
+    async find(@Param('id') id: string, @Body() customer: Customer): Promise<Customer> {
+        return this.customerService.update(id, customer);
+    }
+
+    @Delete(':id')
+    @ApiResponse({
+        status: HttpStatus.NO_CONTENT,
+    })
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async deleteById(@Param('id') id) {
+        await this.customerService.deleteById(id);
     }
 }
