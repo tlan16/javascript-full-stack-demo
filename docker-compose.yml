@@ -2,11 +2,11 @@ version: '3'
 
 services:
   backend:
-    build: ./backend
+    build: ./backend-nest
     ports:
       - 3000:3000
     volumes:
-      - ./backend:/opt/app
+      - ./backend-nest:/opt/app
       - /opt/app/node_modules
     command: npm run start
     networks:
