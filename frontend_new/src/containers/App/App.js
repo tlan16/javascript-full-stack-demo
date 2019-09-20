@@ -22,6 +22,7 @@ export class App extends Component {
     const { url } = this.props.match;
     const { height } = this.props;
     const appHeight = window.innerHeight;
+
     return (
       <ThemeProvider theme={themes[themeConfig.theme]}>
         <AppHolder>
