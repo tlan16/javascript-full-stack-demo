@@ -1,5 +1,0 @@
-/.dockerignore
-/Dockerfile
-/build
-/node_modules
-/dist
