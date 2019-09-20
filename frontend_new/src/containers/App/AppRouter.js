@@ -8,6 +8,10 @@ const routes = [
     component: asyncComponent(() => import('../dashboard')),
   },
   {
+    path: 'customers',
+    component: asyncComponent(() => import('../Customers')),
+  },
+  {
     path: 'blankPage',
     component: asyncComponent(() => import('../blankPage')),
   },
