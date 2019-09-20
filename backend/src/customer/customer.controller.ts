@@ -43,9 +43,8 @@ export class CustomerController {
         status: 200,
         type: [Customer],
     })
-    async findAll(@Query('page') page: number = 0, @Query('limit') limit: number = 10): Promise<Pagination<Customer>> {
-        limit = limit > 100 ? 100 : limit;
-        return this.customerService.findAll({page, limit,});
+    async findAll(@Query('page') page: number = 0, @Query('limit') limit: string = '10'): Promise<Pagination<Customer>> {
+        return this.customerService.findAll({page, limit: parseInt(limit),});
     }
 
     @Get(':id')

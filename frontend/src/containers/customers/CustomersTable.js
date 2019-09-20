@@ -10,20 +10,12 @@ const columns = [
 
 export default () => {
     const [data, setData] = useState([]);
+    const [pagination, setPagination] = useState({
+        current: 1,
+        total: 0,
+        pageSize: 3,
+    });
     const [isLoading, setIsLoading] = useState(true);
-
-    async function fetchCustomers() {
-        const url = (new URI('customer'))
-            .absoluteTo(process.env.REACT_APP_API_HOST)
-            .toString();
-
-        setIsLoading(true);
-        const response = await fetch(url);
-        const customers = await response.json();
-
-        setData(customers);
-        setIsLoading(false);
-    }
 
     useEffect(() => {
         fetchCustomers();
@@ -31,15 +23,43 @@ export default () => {
         return () => {
             setIsLoading(false);
         }
-    }, [setData]);
+    }, [setData, pagination.current, pagination.pageSize]);
 
+    async function fetchCustomers() {
+        const url = (new URI('customer'))
+            .absoluteTo(process.env.REACT_APP_API_HOST)
+            .query({
+                limit: pagination.pageSize,
+                page: pagination.current,
+            })
+            .toString();
+
+        setIsLoading(true);
+        const response = await fetch(url);
+        const customers = await response.json();
+
+        setData(customers.items);
+        setPagination({
+            ...pagination,
+            total: customers.totalItems,
+        });
+        setIsLoading(false);
+    }
+
+    function handleTableChange(pagination, filters, sorter) {
+        setPagination(pagination)
+    }
+    
     return (
         <React.Fragment>
             <TableWrapper
-                pagination={false}
+                pagination={pagination}
+                defaultPageSize={3}
+                rowKey={record => record.id}
                 dataSource={data}
                 columns={columns}
                 loading={isLoading}
+                onChange={handleTableChange}
             />
         </React.Fragment>
     )

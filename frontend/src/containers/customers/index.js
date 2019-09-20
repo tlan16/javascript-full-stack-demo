@@ -4,7 +4,7 @@ import {LayoutContentWrapper} from "@isomorphic/shared/isomorphic/components/uti
 import CustomersTable from "./CustomersTable";
 
 export default () => (
-    <LayoutContentWrapper style={{height: '100vh'}}>
+    <LayoutContentWrapper>
         <LayoutContent>
             <CustomersTable/>
         </LayoutContent>
