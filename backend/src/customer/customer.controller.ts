@@ -10,7 +10,9 @@ import {
     HttpCode,
     UseInterceptors,
     CacheInterceptor,
+    Query,
 } from '@nestjs/common';
+import { Pagination } from 'nestjs-typeorm-paginate';
 import {
     ApiOperation,
     ApiResponse,
@@ -41,8 +43,9 @@ export class CustomerController {
         status: 200,
         type: [Customer],
     })
-    async findAll(): Promise<Customer[]> {
-        return this.customerService.findAll();
+    async findAll(@Query('page') page: number = 0, @Query('limit') limit: number = 10): Promise<Pagination<Customer>> {
+        limit = limit > 100 ? 100 : limit;
+        return this.customerService.findAll({page, limit,});
     }
 
     @Get(':id')

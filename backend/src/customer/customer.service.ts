@@ -1,5 +1,6 @@
 import { Repository } from 'typeorm';
 import {Injectable, Inject, HttpException, HttpStatus} from '@nestjs/common';
+import {paginate, Pagination, IPaginationOptions} from 'nestjs-typeorm-paginate';
 import { Customer } from './customer.entity';
 
 @Injectable()
@@ -60,7 +61,7 @@ export class CustomerService {
         await this.customerRepository.delete(id);
     }
 
-    async findAll(): Promise<Customer[]> {
-        return await this.customerRepository.find();
+    async findAll(options: IPaginationOptions): Promise<Pagination<Customer>> {
+        return await paginate<Customer>(this.customerRepository, options);
     }
 }
