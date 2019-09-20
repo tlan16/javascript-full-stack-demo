@@ -10,17 +10,30 @@ export default class ImageCell extends Component {
     this.onLoadImage = this.onLoadImage.bind(this);
     this.state = {
       ready: false,
+      previousSrc: null,
     };
   }
   componentWillMount() {
     this.loadImage(this.props.src);
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.src !== this.props.src) {
-      this.setState({ src: null });
-      this.loadImage(nextProps.src);
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.src !== state.previousSrc) {
+      return {
+        src: null,
+        previousSrc: props.src,
+      }
+    }
+
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.src !== prevProps.src) {
+      this.loadImage(this.props.src);
     }
   }
+
   loadImage(src) {
     if (ReadyPool[src]) {
       this.setState({ src: src });

@@ -14,17 +14,24 @@ class Range extends Component {
     canRefine: PropTypes.bool.isRequired,
   };
 
-  state = { currentValues: { min: this.props.min, max: this.props.max } };
+  state = {
+    currentValues: {
+      min: this.props.min,
+      max: this.props.max
+    },
+  };
 
-  componentWillReceiveProps(sliderState) {
-    if (sliderState.canRefine) {
-      this.setState({
+  static getDerivedStateFromProps(props, state) {
+    if (props.canRefine) {
+      return {
         currentValues: {
-          min: sliderState.currentRefinement.min,
-          max: sliderState.currentRefinement.max,
+          min: props.currentRefinement.min,
+          max: props.currentRefinement.max,
         },
-      });
+      }
     }
+
+    return null;
   }
 
   onValuesUpdated = sliderState => {

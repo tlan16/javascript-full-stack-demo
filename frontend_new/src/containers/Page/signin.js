@@ -13,15 +13,23 @@ const { login } = authAction;
 class SignIn extends Component {
   state = {
     redirectToReferrer: false,
+    previouslyLoggedIn: false,
   };
-  componentWillReceiveProps(nextProps) {
+
+  static getDerivedStateFromProps(props, state) {
     if (
-      this.props.isLoggedIn !== nextProps.isLoggedIn &&
-      nextProps.isLoggedIn === true
+        state.previouslyLoggedIn !== props.isLoggedIn &&
+        props.isLoggedIn === true
     ) {
-      this.setState({ redirectToReferrer: true });
+      return {
+        redirectToReferrer: true,
+        previouslyLoggedIn: props.isLoggedIn,
+      }
     }
+
+    return null;
   }
+
   handleLogin = () => {
     const { login } = this.props;
     login();
