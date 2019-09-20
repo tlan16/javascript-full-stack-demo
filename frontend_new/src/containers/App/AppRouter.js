@@ -9,7 +9,7 @@ const routes = [
   },
   {
     path: 'customers',
-    component: asyncComponent(() => import('../Customers')),
+    component: asyncComponent(() => import('../customers')),
   },
   {
     path: 'blankPage',
