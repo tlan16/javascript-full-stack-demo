@@ -3,7 +3,7 @@ export default {
 };
 
 const siteConfig = {
-  siteName: 'ISOMORPHIC',
+  siteName: 'FRANK\'S DEMO',
   siteIcon: 'ion-flash',
   footerText: 'Isomorphic ©2018 Created by RedQ, Inc',
   enableAnimatedRoute: false,
