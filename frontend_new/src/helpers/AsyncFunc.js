@@ -11,12 +11,9 @@ export default function asyncComponent(importComponent) {
       this.state = {
         component: null
       };
-    }
-    static getDerivedStateFromProps(props, state) {
       Nprogress.start();
-
-      return null;
     }
+
     componentWillUnmount() {
       this.mounted = false;
     }
