@@ -13,7 +13,9 @@ export default () => {
     const [pagination, setPagination] = useState({
         current: 1,
         total: 0,
-        pageSize: 3,
+        pageSize: 5,
+        pageSizeOptions: [5, 10, 15],
+        showSizeChanger: true,
     });
     const [isLoading, setIsLoading] = useState(true);
 
@@ -54,7 +56,7 @@ export default () => {
         <React.Fragment>
             <TableWrapper
                 pagination={pagination}
-                defaultPageSize={3}
+                defaultPageSize={pagination.pageSize}
                 rowKey={record => record.id}
                 dataSource={data}
                 columns={columns}
