@@ -5,8 +5,8 @@ import {
   transition,
   boxShadow,
   borderRadius,
-} from '../../settings/style-util';
-import WithDirection from '../../settings/withDirection';
+} from '../../../settings/style-util';
+import WithDirection from '../../../settings/withDirection';
 
 const TableWrapper = styled(Table)`
   overflow: hidden;

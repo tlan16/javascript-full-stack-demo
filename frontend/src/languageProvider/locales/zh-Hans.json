@@ -575,5 +575,6 @@
   "topbar.logout": "登出",
   "topbar.viewAll": "查看全部",
   "topbar.viewCart": "查看购物车",
-  "topbar.totalPrice": "总价格"
+  "topbar.totalPrice": "总价格",
+  "table.actions.edit": "编辑"
 }
