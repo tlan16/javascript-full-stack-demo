@@ -7,10 +7,10 @@ import IntlMessages from "@isomorphic/shared/isomorphic/components/utility/intlM
 import {Link} from "react-router-dom";
 
 export default () => {
-    const {location} = useReactRouter();
+    const {location, history} = useReactRouter();
     const {state: {current = 1, pageSize = 5} = {}} = location;
     const [data, setData] = useState([]);
-    const {state: {pagination: paginationFromState = {}} = {}} = location;
+    const {state: {pagination: paginationFromState = {}} = {}} = history.location;
     const [pagination, setPagination] = useState({
         current,
         total: 0,
@@ -51,7 +51,8 @@ export default () => {
     }, [setData, pagination.current, pagination.pageSize]);
 
     function handleTableChange(pagination) {
-        setPagination(pagination)
+        setPagination(pagination);
+        history.replace(location.pathname, {pagination})
     }
 
     return (
