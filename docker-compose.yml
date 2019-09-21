@@ -7,7 +7,7 @@ services:
       - 3000:3000
       - 9229:9229
     volumes:
-      - ./backend:/opt/app:cached
+      - ./backend:/opt/app
       - /opt/app/node_modules
     command: npm run start:dev
     networks:
@@ -58,7 +58,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./frontend:/opt/app:cached
+      - ./frontend:/opt/app
       - /opt/app/node_modules
     command: npm run start
     depends_on:

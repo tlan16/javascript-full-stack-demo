@@ -7,25 +7,19 @@ import IntlMessages from "@isomorphic/shared/isomorphic/components/utility/intlM
 import {Link} from "react-router-dom";
 
 export default () => {
-    const { location } = useReactRouter();
-    const { state: {current= 1, pageSize= 5} = {}} = location;
+    const {location} = useReactRouter();
+    const {state: {current = 1, pageSize = 5} = {}} = location;
     const [data, setData] = useState([]);
+    const {state: {pagination: paginationFromState = {}} = {}} = location;
     const [pagination, setPagination] = useState({
         current,
         total: 0,
         pageSize,
         pageSizeOptions: ['5', '10', '15'],
         showSizeChanger: true,
+        ...(paginationFromState)
     });
     const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        fetchCustomers();
-
-        return () => {
-            setIsLoading(false);
-        }
-    }, [setData, pagination.current, pagination.pageSize]);
 
     async function fetchCustomers() {
         const url = (new URI('customer'))
@@ -48,7 +42,15 @@ export default () => {
         setIsLoading(false);
     }
 
-    function handleTableChange(pagination, filters, sorter) {
+    useEffect(() => {
+        fetchCustomers();
+
+        return () => {
+            setIsLoading(false);
+        }
+    }, [setData, pagination.current, pagination.pageSize]);
+
+    function handleTableChange(pagination) {
         setPagination(pagination)
     }
 
@@ -72,7 +74,7 @@ export default () => {
                         return (
                             <span>
                                 <Link to={{pathname: `customer/${record.id}`, state: {fromPagination: pagination}}}>
-                                    <IntlMessages id={'table.actions.edit'} />
+                                    <IntlMessages id={'table.actions.edit'}/>
                                 </Link>
                             </span>
                         )
