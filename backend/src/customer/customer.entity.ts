@@ -1,6 +1,13 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
-import { IsString, IsISO8601, IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
+import { IsString, IsISO8601, IsNotEmpty, IsEmail, IsOptional, IsArray, IsIn, ValidateNested } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { Address } from '../address/address.entity';
+
+const genders = {
+    male: 'male',
+    female: 'female',
+};
 
 @Entity()
 export class Customer {
@@ -33,8 +40,9 @@ export class Customer {
     title: string;
 
     @Column()
-    @ApiModelProperty({ example: 'male', description: 'The gender of the Customer' })
+    @ApiModelProperty({ example: 'male', enum: Object.assign(genders), description: 'The gender of the Customer' })
     @IsString()
+    @IsIn(Object.values(genders))
     @IsNotEmpty()
     gender: string;
 
@@ -42,4 +50,12 @@ export class Customer {
     @ApiModelProperty({ example: '1990-12-30', description: 'The date of birth of the Customer', type: 'string', format: 'date' })
     @IsISO8601()
     dob: Date;
+
+    @Column(type => Address)
+    @ApiModelProperty({ description: 'The addresses the Customer', type: [Address], required: false })
+    @IsOptional()
+    @IsArray()
+    @ValidateNested({each: true})
+    @Type(() => Address)
+    addresses: Address[];
 }

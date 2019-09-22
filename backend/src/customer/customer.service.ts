@@ -13,6 +13,7 @@ export class CustomerService {
     async create(customer: Customer): Promise<Customer> {
         const createdCustomer = new Customer();
         this.customerRepository.merge(createdCustomer, customer);
+        createdCustomer.addresses = customer.addresses;
 
         return await this.customerRepository.save(createdCustomer);
     }
@@ -33,6 +34,7 @@ export class CustomerService {
         existingCustomer.title = customer.title;
         existingCustomer.gender = customer.gender;
         existingCustomer.dob = customer.dob;
+        existingCustomer.addresses = customer.addresses;
 
         return await this.customerRepository.save(existingCustomer);
     }
