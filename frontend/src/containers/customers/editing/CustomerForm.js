@@ -73,6 +73,10 @@ function CustomerForm(props) {
     },
   };
 
+  function navigateToCustomersListingPage() {
+    history.push('/dashboard/customers', {pagination: fromPagination});
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     props.form.validateFieldsAndScroll(async (err, values) => {
@@ -84,7 +88,7 @@ function CustomerForm(props) {
           'success',
           'Customer updated.',
         );
-        history.push('/dashboard/customers', {pagination: fromPagination});
+        navigateToCustomersListingPage();
       } else {
         Notification(
           'error',
@@ -184,7 +188,7 @@ function CustomerForm(props) {
           Save
         </Button>
         &nbsp;&nbsp;
-        <Button type="default">
+        <Button type="default" onClick={navigateToCustomersListingPage}>
           Cancel
         </Button>
       </FormItem>
