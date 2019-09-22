@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  test-backend:
+  test:
     name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -17,7 +17,7 @@ jobs:
         with:
           version: ${{ matrix.node_version }}
 
-      - name: npm install, build and test
+      - name: test backend
         run: |
           cd backend
           npm install
@@ -25,23 +25,7 @@ jobs:
           npm test
           cd -
 
-  test-frontend:
-    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node_version: [10, 12]
-        os: [ubuntu-latest]
-
-    steps:
-      - uses: actions/checkout@v1
-
-      - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
-        with:
-          version: ${{ matrix.node_version }}
-
-      - name: npm install, build and test
+      - name: test frontend
         run: |
           cd frontend
           npm install
