@@ -4,7 +4,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { Address } from '../address/address.entity';
 
-const genders = {
+export const genders = {
     male: 'male',
     female: 'female',
 };

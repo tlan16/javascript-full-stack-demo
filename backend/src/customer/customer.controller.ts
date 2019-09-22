@@ -61,7 +61,7 @@ export class CustomerController {
         status: 200,
         type: Customer,
     })
-    async find(@Param('id') id: string, @Body() customer: Customer): Promise<Customer> {
+    async updateById(@Param('id') id: string, @Body() customer: Customer): Promise<Customer> {
         return this.customerService.update(id, customer);
     }
 

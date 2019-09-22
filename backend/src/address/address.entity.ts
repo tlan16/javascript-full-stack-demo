@@ -2,7 +2,7 @@ import { Column } from 'typeorm';
 import { IsString, IsISO31661Alpha3, IsNotEmpty, IsOptional, IsIn } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-const types = {
+export const types = {
     billing: 'billing',
     shipping: 'shipping',
 };
