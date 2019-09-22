@@ -1,4 +1,4 @@
-import {Column, Entity, ObjectID, ObjectIdColumn} from 'typeorm';
+import { Column } from 'typeorm';
 import { IsString, IsISO31661Alpha3, IsNotEmpty, IsOptional, IsIn } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
@@ -7,11 +7,7 @@ const types = {
     shipping: 'shipping',
 };
 
-@Entity()
 export class Address {
-    @ObjectIdColumn()
-    id: ObjectID;
-
     @Column()
     @IsIn(Object.values(types))
     @ApiModelProperty({ example: types.billing, enum: Object.values(types), description: 'The type of the Address' })
