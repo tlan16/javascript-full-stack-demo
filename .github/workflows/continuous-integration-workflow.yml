@@ -24,11 +24,3 @@ jobs:
           npm run build --if-present
           npm test
           cd -
-
-      - name: test frontend
-        run: |
-          cd frontend
-          npm install
-          npm run build --if-present
-          npm test
-          cd -
